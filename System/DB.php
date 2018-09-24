@@ -2,7 +2,8 @@
 
 //defined('Site_Name') or exit( 'access denied');
 
-Class DB {
+Class DB
+{
 
     /*public function __construct($localhost = NULL, $dbname = NULL, $username = NULL, $password = NULL)
     {

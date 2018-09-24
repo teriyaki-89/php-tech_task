@@ -5,7 +5,7 @@ defined('Site_Name') or exit( 'access denied');
 Class Users extends Controller {
 
     public function index() {
-        session_start();
+
         //echo "users->index";
         if ( !isset($_SESSION['login'])) {
             $this->view->render('loginView');
@@ -62,15 +62,11 @@ Class Users extends Controller {
     }
 
     public function cabinet () {
-        session_start();
 
         $this->view->render('noView');
     }
 
     public function withdraw () {
-        session_start();
-
-
 
         if (isset ( $_POST['amount']) ) {
             $amount = $this->sanitize($_POST['amount']);
@@ -89,35 +85,22 @@ Class Users extends Controller {
                          $stmt = $db->prepare($sql2);
                          $new_balance =  $_SESSION['balance']- $amount;
                          $stmt->execute(array($_SESSION['id'],date('Y-m-d H:i:s'), -$amount, $new_balance));
-
                          $db->commit();
                          //echo 'success';
                          $_SESSION['balance'] = $new_balance;
                          session_write_close();
                          header ('Location:/users/cabinet');
                          //echo $_SESSION['balance'];
-                     }
-
-                     catch (Exception $e)  {
-                         echo $e->getMessage();
+                     } catch (Exception $e)  {
+                         echo 'error while drawing money ' ;
                          $db->rollback();
                      }
-
-
-
-
                  }
-
              } else {
                  echo 'value is not integer';
              }
         }
-
-
-
     }
-
-
 }
 
 ?>
