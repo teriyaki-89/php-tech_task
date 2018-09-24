@@ -6,10 +6,24 @@ Class Bootstrap {
 
     public function __construct(){
 
-
-        $tokens = explode ('/', ltrim(rtrim($_SERVER['REQUEST_URI'] ,'/'),'/') )  ;
+        $tokens = explode ('/', trim($_SERVER['REQUEST_URI'] ,'/') )  ;
         //print_r ($tokens);
-        $controllerName = ( ucfirst(array_shift( $tokens ) ) );
+        $controllerName = ucfirst(array_shift( $tokens )) ?: 'HomeController' ;
+        $actionName = ucfirst(array_shift( $tokens )) ?: 'index';
+
+        if ( !file_exists('Controllers/'.$controllerName.'.php') ) {
+            $controllerName ='Error404NotFoundController';
+            $controller = new $controllerName;
+            $controller->index();
+        } else {
+            $controller = new $controllerName;
+            $controller->{$actionName}(@tokens);
+        }
+
+
+
+
+        /*$controllerName = ( ucfirst(array_shift( $tokens ) ) );
         //print_r ($controllerName);
         $flag = false;
         if (file_exists('Controllers/'.$controllerName.'.php')) {
@@ -42,7 +56,7 @@ Class Bootstrap {
             $controllerName ='HomeController';
             $controller = new $controllerName;
             $controller->index();
-        }
+        }*/
 
     }
 }
