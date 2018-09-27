@@ -1,20 +1,15 @@
 <?php
-session_start();
 
-Class HomeController extends Controller {
+use \System\View as View;
+
+Class HomeController extends \System\Controller {
 
     public function index() {
-
+        $view = new View();
         if (!isset ($_SESSION['login'])) {
-            $this->view->render('loginView');
+            $view->render('loginView');
         } else {
-            $this->view->render('noView');
+            header('Location: /users/cabinet');
         }
-
-
     }
-
-
 }
-
-?>

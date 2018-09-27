@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Sep 24, 2018 at 06:49 PM
+-- Generation Time: Sep 27, 2018 at 09:59 PM
 -- Server version: 5.7.23-0ubuntu0.16.04.1
 -- PHP Version: 7.0.32-0ubuntu0.16.04.1
 
@@ -26,9 +26,10 @@ SET time_zone = "+00:00";
 -- Table structure for table `balance`
 --
 
-CREATE TABLE `balance` (
+CREATE TABLE IF NOT EXISTS `balance` (
   `user_id` int(11) NOT NULL,
-  `balance` bigint(100) DEFAULT NULL
+  `balance` decimal(15,3) DEFAULT NULL,
+  PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
@@ -36,7 +37,7 @@ CREATE TABLE `balance` (
 --
 
 INSERT INTO `balance` (`user_id`, `balance`) VALUES
-(1, 99040);
+(1, 98910);
 
 -- --------------------------------------------------------
 
@@ -44,13 +45,15 @@ INSERT INTO `balance` (`user_id`, `balance`) VALUES
 -- Table structure for table `transactions`
 --
 
-CREATE TABLE `transactions` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `transactions` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
   `date` datetime NOT NULL,
-  `amount` bigint(100) DEFAULT NULL,
-  `new_balance` bigint(100) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `amount` decimal(15,3) DEFAULT NULL,
+  `new_balance` decimal(15,3) DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `transactions`
@@ -72,7 +75,11 @@ INSERT INTO `transactions` (`id`, `user_id`, `date`, `amount`, `new_balance`) VA
 (13, 1, '2018-09-24 18:14:06', -12, 99550),
 (14, 1, '2018-09-24 18:26:44', -100, 99450),
 (15, 1, '2018-09-24 18:31:40', -400, 99050),
-(16, 1, '2018-09-24 18:33:06', -10, 99040);
+(16, 1, '2018-09-24 18:33:06', -10, 99040),
+(17, 1, '2018-09-24 22:51:35', -100, 98940),
+(18, 1, '2018-09-25 00:03:58', -10, 98930),
+(19, 1, '2018-09-27 21:26:26', -10, 98920),
+(20, 1, '2018-09-27 21:31:43', -10, 98910);
 
 -- --------------------------------------------------------
 
@@ -80,11 +87,12 @@ INSERT INTO `transactions` (`id`, `user_id`, `date`, `amount`, `new_balance`) VA
 -- Table structure for table `users`
 --
 
-CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) COLLATE utf8_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `password` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
@@ -94,43 +102,6 @@ INSERT INTO `users` (`id`, `name`, `password`) VALUES
 (1, 'ilyas', '69c5fcebaa65b560eaf06c3fbeb481ae44b8d618'),
 (2, 'tester', '69c5fcebaa65b560eaf06c3fbeb481ae44b8d618');
 
---
--- Indexes for dumped tables
---
-
---
--- Indexes for table `balance`
---
-ALTER TABLE `balance`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- Indexes for table `transactions`
---
-ALTER TABLE `transactions`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `user_id` (`user_id`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `transactions`
---
-ALTER TABLE `transactions`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Constraints for dumped tables
 --

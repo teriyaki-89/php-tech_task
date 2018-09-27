@@ -1,6 +1,8 @@
 <?php
 
 //defined('Site_Name') or exit( 'access denied');
+namespace System;
+Use \PDO as PDO;
 
 Class DB
 {
@@ -38,12 +40,12 @@ Class DB
             ];
 
             try{
-                self::$instance = new pdo( 'mysql:host='.$localhost.';dbname='.$dbname.';charset=utf8',
+                self::$instance = new PDO( 'mysql:host='.$localhost.';dbname='.$dbname.';charset=utf8',
                     $username,
                     $password,
                     $pdo_options);
             }
-            catch(PDOException $ex){
+            catch(\PDOException $ex){
                 die(json_encode(array('outcome' => false, 'message' => 'Unable to connect')));
             }
         }
