@@ -18,6 +18,7 @@ Class Users extends \System\Controller
         session_write_close();
     }
     public function login () {
+        session_start();
         if  (isset($_SESSION['login'])) {
             header ('Location:/users/cabinet');
         } else {
@@ -34,7 +35,7 @@ Class Users extends \System\Controller
             } else {
                 session_unset();
                 session_destroy();
-                session_name('TestMVC user session');
+                //session_name('TestMVC user session');
                 session_start( [ 'cookie_lifetime' => 86400]);
                 $_SESSION['login'] = $login;
                 $_SESSION['u_id'] = $user_id;
@@ -54,6 +55,7 @@ Class Users extends \System\Controller
         header("Location: /users/index");
     }
     public function cabinet () {
+        //session_start();
         $view = new \System\View();
         $view->render('noView');
         session_write_close();

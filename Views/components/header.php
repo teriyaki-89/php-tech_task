@@ -6,7 +6,8 @@
 </head>
 <body style="width:600px; margin:0 auto; ">
 <?php
-    if (isset($_SESSION['login'])) {
+    if (isset($_SESSION['login']))
+    {
 ?>
 <div style="float:right;">
     <ul>
@@ -29,7 +30,7 @@
     </form>
 </div>
 <?php
-}
+    }
 ?>
 <script type="text/javascript">
      function validate(e) {
