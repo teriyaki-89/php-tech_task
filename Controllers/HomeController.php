@@ -1,17 +1,17 @@
 <?php
 
-use \System\View as View;
+use \System\View;
+use \System\Controller;
 
-Class HomeController extends \System\Controller {
-
+Class HomeController extends Controller {
     public function index() {
-        session_start();
+        $user = new Users();
+        $user->check_session();
         $view = new View();
         if (!isset ($_SESSION['login'])) {
             $view->render('loginView');
         } else {
-            header('Location: /users/cabinet');
+            $view->render('cabinetView');
         }
-        session_write_close();
     }
 }

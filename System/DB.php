@@ -1,28 +1,11 @@
 <?php
 
-//defined('Site_Name') or exit( 'access denied');
 namespace System;
-Use \PDO as PDO;
+defined('Site_Name') or exit( 'access denied');
+Use \PDO;
 
 Class DB
 {
-
-    /*public function __construct($localhost = NULL, $dbname = NULL, $username = NULL, $password = NULL)
-    {
-        $localhost = $localhost ? $localhost : 'localhost';
-        $dbname = $dbname ? $dbname : 'test_db';
-        $username = $username ? $username : 'root';
-        $password = $password ? $password : '03091989';
-        //R::setup( "mysql:host=$localhost;dbname=$dbname;charset=utf8", $username, $password);
-        //R::freeze( TRUE );
-
-        $conn = mysqli_connect($localhost, $username, $password, $dbname);
-        // Check connection
-        if (!$conn) {
-            die("Connection failed: " . mysqli_connect_error());
-        }
-
-    }*/
     private static $instance = NULL;
     public function __construct() {}
 
@@ -46,16 +29,9 @@ Class DB
                     $pdo_options);
             }
             catch(\PDOException $ex){
-                die(json_encode(array('outcome' => false, 'message' => 'Unable to connect')));
+                die(json_encode(['outcome' => false, 'message' => 'Unable to connect']));
             }
         }
         return self::$instance;
     }
-
-
-
 }
-
-
-
-?>

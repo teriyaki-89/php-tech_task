@@ -1,7 +1,7 @@
 <?php
 namespace System;
 defined('Site_Name') or exit( 'access denied');
-use \Controllers\Error404NotFoundController as Error404;
+use \System\Error404NotFoundController as Error404;
 
 Class Bootstrap
 {
@@ -15,7 +15,7 @@ Class Bootstrap
         $actionName     = ucfirst(array_shift( $tokens )) ?: 'index';
         $controller     = file_exists(Controllers_Path. $controllerName .'.php') ? new $controllerName : false;
 
-        if ($controller !== false && is_callable($controllerName, $actionName)) {
+        if ($controller !== false && is_callable($controllerName, $actionName) && method_exists($controllerName, $actionName)) {
             $controller = new $controllerName;
             $controller->{$actionName}(@$tokens);
         } else {
@@ -24,4 +24,3 @@ Class Bootstrap
         }
     }
 }
-
