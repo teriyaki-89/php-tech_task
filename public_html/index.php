@@ -3,7 +3,6 @@ if (!isset($_SESSION)) {
     session_start();
     session_write_close();
 }
-use \System\DB;
 use \System\Bootstrap;
 use \System\View;
 

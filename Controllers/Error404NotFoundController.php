@@ -1,5 +1,4 @@
 <?php
-
 namespace System;
 
 Class Error404NotFoundController
